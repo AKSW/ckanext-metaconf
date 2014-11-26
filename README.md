@@ -7,17 +7,20 @@ The following depicts ideas for the implementation.
 functionality
 =======
 
-You can specify two metadata vocabularies in the config file: 
+You can specify two metadata vocabularies in the config (TODO add extra
+file for that) file: 
 - metadata for a package (which can contain multiple resources)
 
 - metadata for a resource (which is a specific entity)
 
-To specify your own metadata vocabulary you have to give a identifier 
-(eg 'id', 'description', ...). You have to specify a type for your data.
+To specify your own metadata vocabulary, you have to give a identifier 
+(eg 'id', 'description', ...). You also have to specify a type for your data.
 You can specify an MODIFIER for it. Choose out of the following lists:
 
+```
 TYPE
 [textline, textbox, radiobutton, tags, dropdown, url, numberline, date]
+
 
 textline:    one line to type text into
 textbox:     a box to type text into
@@ -42,12 +45,13 @@ MODIFIER
 
 remove_whitespace: strip whitespaces
 clean_format     : format_.lower().split('/')[-1].replace('.', '')
+```
 
 The specification is given as a python dictionary. The CKAN standard
 vocabularies for datasets und resources would look like this:
 
 !!! TODO maybe better examples?, clean up, add TYPE's, 
-
+```
 resource_mvocab = {
      'id': [ignore_empty],
      'revision_id': [ignore_missing],
@@ -111,3 +115,4 @@ resource_mvocab = {
          'title': [ignore_missing],
          '__extras': [ignore],
 }
+```
