@@ -16,7 +16,7 @@
         ✓- Show it
         !  Update it
 
-        ✓ := works   |   ✓- := works, kind of   |    ! := works not
+        ✓ := works   |   ✓- := works, kind of   |    ! := does not work 
 
         functionality
         =============
