@@ -1,0 +1,5 @@
+{% ckan_extends %}
+
+{% block basic_fields %}
+  {% snippet 'package/snippets/metaconf-content.html', data=data, errors=errors, licenses=c.licenses, groups_available=c.groups_available, metaconf_blocks=h.metaconf_blocks %}
+{% endblock %}

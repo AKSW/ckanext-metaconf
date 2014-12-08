@@ -1,0 +1,9 @@
+{{
+form.prepend(
+'%s' % mc.name,
+id='%s' % mc.id,
+prepend='%s' % mc.opt_value.text,
+label=_('%s') % mc.label,
+value=data.slug,
+error=errors.slug
+) }}

@@ -1,0 +1,7 @@
+{{ form.markdown('notes',
+id='%s' % mc.id,
+label='%s' % mc.label,
+placeholder='%s' % mc.opt_value.text,
+value=data.notes,
+error=errors.notes
+) }}

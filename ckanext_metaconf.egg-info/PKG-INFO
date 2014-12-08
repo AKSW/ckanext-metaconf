@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: ckanext-metaconf
+Version: 0.1
+Summary: Allows configuring the metadata vocabulary in CKAN.
+Home-page: UNKNOWN
+Author: Dennis Konrad
+Author-email: mam10hna@studserv.uni-leipzig.de
+License: MIT License
+Description: 
+            
+Platform: UNKNOWN
