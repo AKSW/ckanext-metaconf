@@ -16,6 +16,8 @@
         ✓- Show it
         !  Update it
 
+        ✓ := works   |   ✓- := works, kind of   |    ! := works not
+
         functionality
         =============
 
@@ -105,6 +107,7 @@
         15) TODO: alter value and error to save our custom fields (they are saved, but why?; check that)
         16) write config parser
         19) generalize metaconf-url, at this moment it's shown under title -.-
+        20) TODO: Fix Github markdown
 
         Nice to know
         ============
