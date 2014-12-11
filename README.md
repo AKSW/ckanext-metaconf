@@ -35,12 +35,11 @@
         fuenf.opt_value['text']   =  'Another text'
 
         For type you can choose from:
-        TODO: extensive documentation ob the options for those choices + there are more than that
 
         ✓  input:       one line to type text into
         ✓  markdown:    a box to type markdown into
         ✓  textarea:    a box to type simple text into 
-        ✓- checkbox:    radiobuttons for boolean input (TODO: can we label it?)
+        ✓- checkbox:    radiobuttons for boolean input
         ✓  inputpart:   only parts of the data saved are given by the user
         ✓  tags:        multiple tags
         ✓  select:      a dropdown menu to choose from
@@ -49,6 +48,8 @@
         -  date:        a field to input a date
         ✓  hidden:      add a hidden field
         !  organization:choose from those CKAN Organizations (at the moment this is activated by default when a organization exists)
+
+        -  TODO: formatierung übrschriften, ...
 
         For validator you can choose from:
         [empty, ignore_empty, ignore, ignore_missing, if_empty_save_as(identifier)]
@@ -92,22 +93,6 @@
                         -> package_metadata_author    : Author && Author-Email
                         -> package_metadata_fields_maintainer: Maintainer && Maintainer-Email
 
-
-        TODO
-        ====
-
-        1) dont forget to put the required message to elements that are required
-        4) organization must be provided (really?) (looks like the deployer can specify it... but dont forget to put it in show_schema too)
-        5) Plugins may change the parameters of this function depending on the value of
-           the ``type`` parameter, see the ``IDatasetForm`` plugin interface.
-        8) currently we arent altering those update and show schemata. Should we?
-        9.5) data.extras does not exist initially, where do they create it? FUU extra magic?!!? evtl einfach mal ohne plugin angucken... -.-
-        10) why did step 2 vanish? -> Can we move things to step 2
-        12) generate schema from selected blocks: convert to extras in create | convert from extras in show... Maybe Flags for that?
-        15) TODO: alter value and error to save our custom fields (they are saved, but why?; check that)
-        16) write config parser
-        19) generalize metaconf-url, at this moment it's shown under title -.-
-        20) TODO: Fix Github markdown
 
         Nice to know
         ============
