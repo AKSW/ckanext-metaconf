@@ -12,16 +12,20 @@ not the user.
 
 There are three main things that can be done when using CKAN Datasets:
 
-* ✓  create it
-* ✓- show it
-* !  update it
+✓  create it
+
+✓- show it
+
+!  update it
+
 
 **Ckanext-Metaconf is currently under development** and you should not use it. Those
 signs are refelecting the current state of work:
-* ✓  := works
-* ✓- := works, kind of
-* !  := does not work 
+✓  := works
 
+✓- := works, kind of
+
+!  := does not work 
 
 
 ## How can I specify my metadata-schema?
@@ -54,20 +58,31 @@ has to be given by the user. Every McBlock Object has to be provided with the
 attributes: type,name,label and validator. In most of the cases its necessary to
 give one or more opt_values to make resonable use of the element.
 
-- ✓  input:       one line to type text into
-- ✓  markdown:    a box to type markdown into
-- ✓  textarea:    a box to type simple text into 
-- ✓- checkbox:    radiobuttons for boolean input
-- ✓  inputpart:   only parts of the data saved are given by the user
-- ✓  tags:        multiple tags
-- ✓  select:      a dropdown menu to choose from
-- !  url:         one line to input a URL
-- !  numberline:  one line to typ an integer into
-- -  date:        a field to input a date
-- ✓  hidden:      add a hidden field
-- !  organization:choose from those CKAN Organizations (at the moment this is activated by default when a organization exists)
+✓  input:       one line to type text into
 
-- -  TODO: formatierung übrschriften, ...
+✓  markdown:    a box to type markdown into
+
+✓  textarea:    a box to type simple text into
+
+✓- checkbox:    radiobuttons for boolean input
+
+✓  inputpart:   only parts of the data saved are given by the user
+
+✓  tags:        multiple tags
+
+✓  select:      a dropdown menu to choose from
+
+!  url:         one line to input a URL
+
+!  numberline:  one line to typ an integer into
+
+!  date:        a field to input a date
+
+✓  hidden:      add a hidden field
+
+!  organization:choose from those CKAN Organizations (at the moment this is activated by default when a organization exists)
+
+!  TODO: formatierung übrschriften, ...
 
 For validator you can choose from:
 **TODO this is not cool at the time: document more and better**
