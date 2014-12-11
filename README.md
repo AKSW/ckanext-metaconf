@@ -1,9 +1,8 @@
-> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-> !!! BEWARE! THIS PLUGIN IS NOT USABLE YET !!!
-> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+> BEWARE! THIS PLUGIN IS NOT USABLE YET !!!
 
-## ckanext-metaconf
-# Introduction
+
+# ckanext-metaconf
+## Introduction
 
 This is an extension for the CKAN data portal platform. It adds the possibility
 to configure a metadata schema for datasets and resources. You can specify your
@@ -13,9 +12,9 @@ not the user.
 
 There are three main things that can be done when using CKAN Datasets:
 
-✓  create it
-✓- show it
-!  update it
+* ✓  create it
+* ✓- show it
+* !  update it
 
 **Ckanext-Metaconf is currently under development** and you should not use it. Those
 signs are refelecting the current state of work:
@@ -24,7 +23,8 @@ signs are refelecting the current state of work:
 * !  := does not work 
 
 
-# How can I specify my metadata-schema?
+
+## How can I specify my metadata-schema?
 
 Before messing around with this plugin, take a look at how to work with 
 [http://docs.ckan.org/en/latest/extensions/tutorial.html#installing-the-extension] (CKAN
@@ -34,8 +34,8 @@ Now that you know how to install a extension, you can configure the metadata
 schema to fit your needs. In the main directory theres a 'metaconf-schema.py'
 file. It is the only file you have to edit to fully specify your schema. As a
 example there is the OpenGovernmentData-Metadata format implemented so you can
-see what's possible and how to implement it. (TODO it's not at the point this is
-written)
+see what's possible and how to implement it. **TODO it's not at the point this is
+written**
 
 Every element (shown in the creation workflow) is thereby specified as a python
 McBlock object. Choose a random name (here it's 'fuenf') for your object and
@@ -54,23 +54,23 @@ has to be given by the user. Every McBlock Object has to be provided with the
 attributes: type,name,label and validator. In most of the cases its necessary to
 give one or more opt_values to make resonable use of the element.
 
-    ✓  input:       one line to type text into
-    ✓  markdown:    a box to type markdown into
-    ✓  textarea:    a box to type simple text into 
-    ✓- checkbox:    radiobuttons for boolean input
-    ✓  inputpart:   only parts of the data saved are given by the user
-    ✓  tags:        multiple tags
-    ✓  select:      a dropdown menu to choose from
-    !  url:         one line to input a URL
-    !  numberline:  one line to typ an integer into
-    -  date:        a field to input a date
-    ✓  hidden:      add a hidden field
-    !  organization:choose from those CKAN Organizations (at the moment this is activated by default when a organization exists)
-    
-    -  TODO: formatierung übrschriften, ...
+- ✓  input:       one line to type text into
+- ✓  markdown:    a box to type markdown into
+- ✓  textarea:    a box to type simple text into 
+- ✓- checkbox:    radiobuttons for boolean input
+- ✓  inputpart:   only parts of the data saved are given by the user
+- ✓  tags:        multiple tags
+- ✓  select:      a dropdown menu to choose from
+- !  url:         one line to input a URL
+- !  numberline:  one line to typ an integer into
+- -  date:        a field to input a date
+- ✓  hidden:      add a hidden field
+- !  organization:choose from those CKAN Organizations (at the moment this is activated by default when a organization exists)
+
+- -  TODO: formatierung übrschriften, ...
 
 For validator you can choose from:
-TODO this is not cool at the time
+**TODO this is not cool at the time: document more and better**
 [empty, ignore_empty, ignore, ignore_missing, if_empty_save_as(identifier)]
 
 empty:            field has to be empty
@@ -86,7 +86,7 @@ remove_whitespace: strip whitespaces
 clean_format     : format_.lower().split('/')[-1].replace('.', '')
 ```
 
-# Temporary things the developers found to be interesting at development time
+## Temporary things the developers found to be interesting at development time
 
 Step 1: package_basic_fields.html
               -> 
@@ -110,8 +110,8 @@ Step 3: package_metadata_fields.html
               -> package_metadata_fields_maintainer: Maintainer && Maintainer-Email
 
 
-Nice to know
-============
+## Nice to know
+
 !!! You have to create a organization to add datasets! (At least while using the
 standard schema... ;) No you have not!
 
