@@ -16,14 +16,14 @@ There are three main things that can be done when using CKAN Datasets:
 - [x] show it
 - [ ] update it
 
-**Ckanext-Metaconf is currently under development** and you should not use it.
 Only marked items are fully implemented yet. 
+
+**ckanext-metaconf is currently under development** and you should not use it.
 
 ## How can I specify my metadata-schema?
 
 Before messing around with this plugin, take a look at how to work with 
-[http://docs.ckan.org/en/latest/extensions/tutorial.html#installing-the-extension] (CKAN
-Plugins!)
+[CKAN Plugins!] (http://docs.ckan.org/en/latest/extensions/tutorial.html#installing-the-extension)
 
 Now that you know how to install a extension, you can configure the metadata
 schema to fit your needs. In the main directory theres a 'metaconf-schema.py'
@@ -85,10 +85,10 @@ For validator you can choose from:
 
 ## Temporary things the developers found to be interesting at development time
 
-Step 1: package_basic_fields.html
+    Step 1: package_basic_fields.html
               -> 
 
-Step 2: resource_form.html
+    Step 2: resource_form.html
               -> 'stages':                   Stages snippet (1,2,3 bar at the top)
 
               -> 'basic_fields':             File block (Upload or Link)
@@ -100,7 +100,7 @@ Step 2: resource_form.html
 
               -> Form buttons (previous, save&add another, next)
 
-Step 3: package_metadata_fields.html
+    Step 3: package_metadata_fields.html
               -> package_metadata_fields_url: Resource URL
               -> package_metadata_fields_version: Version
               -> package_metadata_author    : Author && Author-Email
@@ -115,7 +115,7 @@ Step 3: package_metadata_fields.html
 - One can access the loop index in jinja with [loop.index0]
   (http://jinja.pocoo.org/docs/dev/templates/#for) ( it's 0 indexed)
 
-- [http://jinja.pocoo.org/docs/dev/templates/#list-of-global-functions] (Jinja range function)
+- [Jinja range function] (http://jinja.pocoo.org/docs/dev/templates/#list-of-global-functions)
 
 - form.hidden and so on are macros! So how can we pass things to macros? --> Using CKAN Snippets u can pass variables while calling
 
