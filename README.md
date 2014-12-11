@@ -50,22 +50,20 @@ attributes: type,name,label and validator. In most of the cases its necessary to
 give one or more opt_values to make resonable use of the element.
 
 Implemented | Type | Description
-------|-------------|-----------------------------------------
-- [x] | input:      |  one line to type text into
-- [x] | markdown:   |  a box to type markdown into
-- [x] | textarea:   |  a box to type simple text into
-- [ ] | *checkbox:  |   *radiobuttons for boolean input*
-- [x] | inputpart:  |  only parts of the data saved are given by the user
-- [x] | tags:       |  multiple tags
-- [x] | select:     |  a dropdown menu to choose from
-- [ ] | *url:*      |    *one line to input a URL*
-- [ ] | numberline: |  one line to typ an integer into
-- [ ] | date:       |  a field to input a date
-- [x] | hidden:     |  add a hidden field
-- [x] | organization: | choose from those CKAN Organizations (at the moment this is activated by default when a organization exists)
-
-
-- [ ] TODO: formatierung übrschriften, ...
+--|---------------|-----------------------------------------
+✓ | input:        |  one line to type text into
+✓ | markdown:     |  a box to type markdown into
+✓ | textarea:     |  a box to type simple text into
+✗ | *checkbox:    |   *radiobuttons for boolean input*
+✓ | inputpart:    |  only parts of the data saved are given by the user
+✓ | tags:         |  multiple tags
+✓ | select:       |  a dropdown menu to choose from
+✗ | *url:*        |    *one line to input a URL*
+✗ | numberline:   |  one line to typ an integer into
+✗ | date:         |  a field to input a date
+✓ | hidden:       |  add a hidden field
+✓ | organization: | choose from those CKAN Organizations (at the moment this is activated by default when a organization exists)
+✗ |               |TODO: formatierung übrschriften, ...
 
 For validator you can choose from:
 
