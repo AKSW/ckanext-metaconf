@@ -84,22 +84,27 @@ zehn.opt_value['text'] = "Ein toller Text"
 
 elf = McBlock()
 elf.type = 'h1'
+elf.validator = ['ignore_missing']
 elf.name = 'HTML h1 heading'
 
 elfeins = McBlock()
 elfeins.type = 'h2'
+elfeins.validator = ['ignore_missing']
 elfeins.name = 'HTML h2 heading'
 
 elfzwei = McBlock()
 elfzwei.type = 'h3'
+elfzwei.validator = ['ignore_missing']
 elfzwei.name = 'HTML h3 heading'
 
 zwoelf = McBlock()
+zwoelf.validator = ['ignore_missing']
 zwoelf.type = 'hline'
 
 dreiz = McBlock()
 dreiz.type = 'custom'
 dreiz.name = 'custom_block'
+dreiz.validator = ['ignore_missing']
 dreiz.opt_value['html'] = "<p>We open at <time>10:00</time> every morning.</p>"
 
 mc_blocks = [eins, zwei, drei, vier, fuenf, sechs, sieben, acht, neun, zehn, elf, elfeins, elfzwei, zwoelf, dreiz]
