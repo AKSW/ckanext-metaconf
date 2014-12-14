@@ -1,6 +1,18 @@
-{{ form.checkbox(
-'%s' % mc.name,
-id='%s' % mc.id,
-label="%s" % mc.opt_value.label,
-checked=mc.opt_value.checked
-) }}
+<div class="control-group{{ " error" if error }}{{ " " ~ classes | join(' ') }}">
+  <label class="control-label" for="{{ for }}">{% if is_required %}
+    <span title="{{ _("This field is required") }}"
+          class="control-required">*
+    </span> {% endif %}{{ mc.label or ('')}}
+  </label>
+
+  {{ form.checkbox(
+  '%s' % mc.name,
+  id='%s' % mc.id,
+  placeholder='thisisaplaceholder?',
+  checked=mc.opt_value.checked,
+  value=data.extra,
+  error=errors.extra
+  ) }}
+
+
+</div>

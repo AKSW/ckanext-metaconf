@@ -9,8 +9,6 @@ errors=errors, form=form %}
 {% snippet 'package/snippets/metaconf-organization.html', data=data, errors=errors, form=form, groups_available=groups_available, mc=mc_element %}
 {% for mc_element in metaconf_blocks %}
 
-{{mc_element.type}} <br>
-
   {% if mc_element.type == 'input' %}
     {% snippet 'package/snippets/metaconf-input.html', data=data,
     errors=errors, form=form, mc=mc_element %}
@@ -56,14 +54,14 @@ errors=errors, form=form %}
 {% endfor %}  
 
 
-{# {% for this in h.metaconf_creation_schema %} #}
-{#   {{this}} <br> #}
-{#   {% if h.metaconf_creation_schema[this] is iterable() %} #}
-{#     <blockquote> #}
-{#       {% for that in h.metaconf_creation_schema[this] %} #}
-{#         {{that}} <br> #}
-{#       {% endfor %} #}
-{#     </blockquote> #}
-{#   {% endif %} #}
-{# {% endfor %} #}
+{% for this in h.metaconf_creation_schema %}
+  {{this}} <br>
+  {% if h.metaconf_creation_schema[this] is iterable() %}
+    <blockquote>
+      {% for that in h.metaconf_creation_schema[this] %}
+        {{that}} <br>
+      {% endfor %}
+    </blockquote>
+  {% endif %}
+{% endfor %}
 

@@ -15,18 +15,20 @@ extra_fields    = False
 
 eins = McBlock()
 eins.type = 'hidden'
-eins.name = 'HiddenInformation'
+eins.name = 'tag_string'
 eins.validator = ['ignore_missing']
+eins.opt_value = {'text': 'blub'}
 
 zwei = McBlock()
 zwei.type = 'input'
-zwei.name = 'InputText'
+zwei.name = 'Input Text'
 zwei.validator = ['ignore_missing']
 zwei.opt_value = {'text': 'This is the text'}
 
 drei = McBlock()
 drei.type = 'checkbox'
 drei.name = 'Checkbox-Selektiert'
+drei.label = 'We want to label this!'
 drei.validator = ['ignore_missing']
 drei.opt_value = {'checked': True}
 
@@ -103,29 +105,32 @@ def metaconf_creation_schema(default_schema, mc_blocks):
     mc_schema['name'] = default_schema['name']
 
     #TODO So is there a problem with this group thing?
-#    mc_schema['groups'] = default_schema['groups']
+    mc_schema['groups'] = default_schema['groups']
     
     return mc_schema
 
-# TODO this works somehow...
 def metaconf_show_schema(default_schema, mc_blocks):
+    # default_schema is the creation default schema!
+    # it's used to create our metaconf creation schema which is altered to be used as show schema
     schema = metaconf_creation_schema(default_schema, mc_blocks)
-
+    
+    
     # Don't strip ids from package dicts when validating them.
     schema['id'] = []
-
+    schema['resources'] = {}
+    
     schema.update({
-        'tags': {'__extras': [ckan.lib.navl.validators.keep_extras]}})
+        'tags': {'__extras': [tk.get_validator('keep_extras')]}})
 
     # Add several keys to the 'resources' subschema so they don't get stripped
     # from the resource dicts by validation.
 
     schema['resources'].update({
-        'created': [ckan.lib.navl.validators.ignore_missing],
-        'position': [not_empty],
-        'last_modified': [ckan.lib.navl.validators.ignore_missing],
-        'cache_last_updated': [ckan.lib.navl.validators.ignore_missing],
-        'webstore_last_updated': [ckan.lib.navl.validators.ignore_missing],
+        'created': [tk.get_validator('ignore_missing')],
+        'position': [tk.get_validator('not_empty')],
+        'last_modified': [tk.get_validator('ignore_missing')],
+        'cache_last_updated': [tk.get_validator('ignore_missing')],
+        'webstore_last_updated': [tk.get_validator('ignore_missing')],
         'revision_timestamp': [],
         'resource_group_id': [],
         'cache_last_updated': [],
@@ -143,15 +148,15 @@ def metaconf_show_schema(default_schema, mc_blocks):
     })
 
     schema.update({
-        'state': [ckan.lib.navl.validators.ignore_missing],
-        'isopen': [ignore_missing],
-        'license_url': [ignore_missing],
+        'state': [tk.get_validator('ignore_missing')],
+        'isopen': [tk.get_validator('ignore_missing')],
+        'license_url': [tk.get_validator('ignore_missing')],
         })
 
     schema['groups'].update({
-        'description': [ignore_missing],
-        'display_name': [ignore_missing],
-        'image_display_url': [ignore_missing],
+        'description': [tk.get_validator('ignore_missing')],
+        'display_name': [tk.get_validator('ignore_missing')],
+        'image_display_url': [tk.get_validator('ignore_missing')],
         })
 
     # Remove validators for several keys from the schema so validation doesn't
@@ -180,7 +185,8 @@ def metaconf_show_schema(default_schema, mc_blocks):
     schema['tracking_summary'] = []
     schema['license_title'] = []
     
-    return mc_schema
+    #TODO this is wrong 
+    return default_schema
 
 
 class MetaconfPlugin(plug.SingletonPlugin, tk.DefaultDatasetForm):
@@ -205,7 +211,9 @@ class MetaconfPlugin(plug.SingletonPlugin, tk.DefaultDatasetForm):
         return super(MetaconfPlugin, self).update_package_schema()
 
     def show_package_schema(self):
-        return metaconf_show_schema(super(MetaconfPlugin, self).show_package_schema(), mc_blocks)
+        #also wrong
+        return super(MetaconfPlugin, self).show_package_schema()
+        #return metaconf_show_schema(super(MetaconfPlugin, self).create_package_schema(), mc_blocks)
 
 
     """ Redefine if this plugin is a default fallback"""
