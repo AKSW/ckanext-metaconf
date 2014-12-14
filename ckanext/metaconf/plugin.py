@@ -82,7 +82,27 @@ zehn.label = 'Eine URL Eingabe'
 zehn.validator = ['ignore_missing']
 zehn.opt_value['text'] = "Ein toller Text"
 
-mc_blocks = [eins, zwei, drei, vier, fuenf, sechs, sieben, acht, neun, zehn]
+elf = McBlock()
+elf.type = 'h1'
+elf.name = 'HTML h1 heading'
+
+elfeins = McBlock()
+elfeins.type = 'h2'
+elfeins.name = 'HTML h2 heading'
+
+elfzwei = McBlock()
+elfzwei.type = 'h3'
+elfzwei.name = 'HTML h3 heading'
+
+zwoelf = McBlock()
+zwoelf.type = 'hline'
+
+dreiz = McBlock()
+dreiz.type = 'custom'
+dreiz.name = 'custom_block'
+dreiz.opt_value['html'] = "<p>We open at <time>10:00</time> every morning.</p>"
+
+mc_blocks = [eins, zwei, drei, vier, fuenf, sechs, sieben, acht, neun, zehn, elf, elfeins, elfzwei, zwoelf, dreiz]
 
 def metaconf_blocks(blocks):
     return blocks

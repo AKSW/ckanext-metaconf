@@ -50,6 +50,20 @@ errors=errors, form=form %}
   {% snippet 'package/snippets/metaconf-hidden.html', data=data,
   errors=errors, form=form, mc=mc_element %}
 
+{% elif mc_element.type == 'custom' %}
+
+  {% snippet 'package/snippets/metaconf-custom.html', data=data,
+  errors=errors, form=form, mc=mc_element %}
+
+
+{% elif mc_element.type == 'hline' or
+  mc_element.type == 'h1' or
+  mc_element.type == 'h2' or
+  mc_element.type == 'h3' %}
+
+  {% snippet 'package/snippets/metaconf-formatting.html', data=data,
+  errors=errors, form=form, mc=mc_element %}
+
 {% endif %}
 {% endfor %}  
 
