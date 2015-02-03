@@ -1,7 +1,23 @@
-{{ form.markdown('notes',
-id='%s' % mc.id,
-label='%s' % mc.label,
-placeholder='%s' % mc.opt_value.text,
-value=data.notes,
-error=errors.notes
+{% import 'macros/form.html' as form %}
+
+{% set exists = [] %}
+{% for item in data.extras %}
+  {% if item.key == mc.key %}
+          {% do exists.append(item.value) %}
+      {% endif %}
+{% endfor %}
+
+{% if exists %}
+  {% set daten=exists[0] %}
+{% else %}
+  {% set daten=data[mc.key] %}
+{% endif %}
+
+{{form.markdown(
+    mc.key,
+    id='field-' + mc.key,
+    label=mc.label,
+    placeholder=mc.opt_value.text,
+    value=daten,
+    error=errors[mc.key]
 ) }}

@@ -1,0 +1,11 @@
+{% set exists = [] %}
+{% for item in data.extras %}
+  {% if item.key == element.key %}
+          {% do exists.append(item.value) %}
+      {% endif %}
+{% endfor %}
+
+{% if exists %}
+{{ h.link_to(exists[0], rel='TODOdc:creator', target='_blank') }}
+{% endif %}
+

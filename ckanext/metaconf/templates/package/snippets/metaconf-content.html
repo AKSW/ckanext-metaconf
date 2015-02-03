@@ -6,18 +6,22 @@ errors=errors, form=form %}
 {% snippet 'package/snippets/metaconf-standard-url.html', data=data,
 errors=errors, form=form %}
 
-{% snippet 'package/snippets/metaconf-organization.html', data=data, errors=errors, form=form, groups_available=groups_available, mc=mc_element %}
+{% snippet 'package/snippets/metaconf-organization.html', data=data,
+errors=errors, form=form, groups_available=groups_available, mc=mc_element %}
+
 {% for mc_element in metaconf_blocks %}
 
   {% if mc_element.type == 'input' %}
     {% snippet 'package/snippets/metaconf-input.html', data=data,
-    errors=errors, form=form, mc=mc_element %}
+    errors=errors, extras=data.extras, form=form, mc=mc_element %}
 
 {% elif mc_element.type == 'url' %}
   {% snippet 'package/snippets/metaconf-url.html', data=data,
   errors=errors, form=form, mc=mc_element %}
   
-{% elif mc_element.type == 'tags' %}    
+{% elif mc_element.type == 'tags' %}
+  {% set tag_field_hidden = 'field-' + mc_element.key %}
+  {{ form.hidden(tag_field_hidden,'') }}
   {% snippet 'package/snippets/metaconf-tags.html', data=data,
   errors=errors, form=form, mc=mc_element %}
 
@@ -35,7 +39,7 @@ errors=errors, form=form %}
 
 {% elif mc_element.type == 'checkbox' %}    
   {% snippet 'package/snippets/metaconf-checkbox.html', data=data,
-  errors=errors, form=form, name=name, mc=mc_element %}
+  errors=errors, form=form, mc=mc_element %}
 
 {% elif mc_element.type == 'textarea' %}    
   {% snippet 'package/snippets/metaconf-textarea.html', data=data,
@@ -49,6 +53,11 @@ errors=errors, form=form %}
 
   {% snippet 'package/snippets/metaconf-hidden.html', data=data,
   errors=errors, form=form, mc=mc_element %}
+
+{% elif mc_element.type == 'newage' %}
+
+  {% snippet 'package/snippets/metaconf-newage.html', data=data,
+  errors=errors, extras=data.extras, form=form, mc=mc_element %}
 
 {% elif mc_element.type == 'custom' %}
 
@@ -68,14 +77,104 @@ errors=errors, form=form %}
 {% endfor %}  
 
 
-{% for this in h.metaconf_creation_schema %}
-  {{this}} <br>
-  {% if h.metaconf_creation_schema[this] is iterable() %}
-    <blockquote>
-      {% for that in h.metaconf_creation_schema[this] %}
-        {{that}} <br>
-      {% endfor %}
-    </blockquote>
-  {% endif %}
-{% endfor %}
+{# {% set provided_schema = h.metaconf_creation_schema %} #}
+{# {% for this in provided_schema %} #}
+{#   {{this}} <br> #}
+{#   {% if provided_schema[this] is iterable() %} #}
+{#     <blockquote> #}
+{#       {% for that in provided_schema[this] %} #}
+{#         {{that}} <br> #}
+{#       {% endfor %} #}
+{#     </blockquote> #}
+{#   {% endif %} #}
+{# {% endfor %} #}
 
+{# <h1> BEGINNING! </h1> #}
+
+{# {% if data is iterable() %} #}
+{#   <blockquote> #}
+{#     {% for that in data %} #}
+{#       {{that}} <br> #}
+{#       {% if that is iterable() %} #}
+{#         {% for dat in that %} #}
+{#           {{dat}} <br> #}
+{#         {% endfor %} #}
+{#       {% endif %} #}
+{#       {% endfor %} #}
+{#   </blockquote> #}
+{# {% endif %} #}
+
+<script>
+  function appendpref(){
+  {% set last_element = [] %}
+
+  {% for mc_element in metaconf_blocks %}
+
+    {% set block_id = 'field-' + mc_element.key %}
+
+    {% if mc_element.type == 'inputpart' %}
+      if ( document.getElementById("{{block_id}}").value.length != 0) {
+      if (
+      document.getElementById("{{block_id}}").value.indexOf("{{mc_element.opt_value['text']}}") == -1 ) {
+      document.getElementById("{{block_id}}").value = "{{mc_element.opt_value['text']}}" + document.getElementById("{{block_id}}").value;
+      }
+      }      
+      {% if not last_element %}
+        {% do last_element.append(block_id) %}
+      {% endif %}
+    {% endif %}
+
+    {% if mc_element.type == 'url' %}
+      if ( document.getElementById("{{block_id}}").value.length != 0) {
+      if (
+      document.getElementById("{{block_id}}").value.indexOf("{{mc_element.opt_value['text']}}") == -1) {
+      document.getElementById("{{block_id}}").value = "{{mc_element.opt_value['prefix']}}" + document.getElementById("{{block_id}}").value;
+      }
+      }
+      {% if not last_element %}
+        {% do last_element.append(block_id) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  }
+
+  function removepref(){
+  {% set last_element = [] %}
+
+  {% for mc_element in metaconf_blocks %}
+
+    {% set block_id = 'field-' + mc_element.key %}
+
+    {% if mc_element.type == 'inputpart' %}
+      if ( document.getElementById("{{block_id}}").value.indexOf("{{mc_element.opt_value['text']}}") == 0 ) {
+      document.getElementById("{{block_id}}").value = document.getElementById("{{block_id}}").value.substring( '{{mc_element.opt_value['text']}}'.length );
+      }
+
+      {# document.getElementById("{{block_id}}").value.lastIndexOf( "{{mc_element.opt_value['text']}}" ) #}
+      
+      {% if not last_element %}
+        {% do last_element.append(block_id) %}
+      {% endif %}
+    {% endif %}
+
+    {% if mc_element.type == 'url' %}
+      if ( document.getElementById("{{block_id}}").value.indexOf("{{mc_element.opt_value['prefix']}}") == 0 ) {
+      document.getElementById("{{block_id}}").value = document.getElementById("{{block_id}}").value.substring( '{{mc_element.opt_value['prefix']}}'.length );
+      }
+      {% if not last_element %}
+        {% do last_element.append(block_id) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  }
+  
+  function init(){
+  var form = document.getElementById("{{last_element[0]}}").form;
+  form.onsubmit = appendpref;
+  removepref();
+  }
+
+
+  window.onload=init;
+
+</script>

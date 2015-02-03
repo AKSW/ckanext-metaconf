@@ -1,0 +1,32 @@
+{#
+render a list of tags 
+tags: list of tags
+#}
+
+{% set exists = [] %}
+{% for item in data.extras %}
+  {% if item.key == element.key %}
+    {% do exists.append(item.value) %}
+  {% endif %}
+{% endfor %}
+
+{% set _class = _class or 'tag-list' %}
+<ul class="{{ _class }}">
+  {% set tag_string = '' %}
+  {% for tag in exists[0] %}
+    {% if tag != ',' %}
+      {% set tag_string = tag_string + tag %}
+    {% endif %}
+    {% if loop.last %}
+      <li>
+        <a class="tag">{{ h.truncate(tag_string, 22) }}</a>
+      </li>
+    {% endif %}
+    {% if tag == ',' %}
+      <li>
+        <a class="tag">{{ h.truncate(tag_string, 22) }}</a>
+      </li>
+      {% set tag_string = '' %}
+    {% endif %}
+  {% endfor %}
+</ul>

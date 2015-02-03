@@ -1,10 +1,81 @@
 {% ckan_extends %}
 
-{% block extras %}
-  {% if pkg_dict.custom_text %}
+{%- set donotshow = [
+'title',
+'name',
+'notes',
+'license_id',
+'custom',
+'owner_org',
+'hidden',
+'hline',
+'h1',
+'h2',
+'h3',
+] -%}
+{# 'tag_string', #}
+
+
+{% block package_additional_info %}
+
+{% if h.metaconf_config.show_additional_info %}
+
+  {% if pkg_dict.url %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Custom Text") }}</th>
-      <td class="dataset-details">{{ pkg_dict.custom_text }}</td>
+      <th scope="row" class="dataset-label">{{ _('Source') }}</th>
+      <td class="dataset-details" property="foaf:homepage">{{ h.link_to(pkg_dict.url, pkg_dict.url, rel='foaf:homepage', target='_blank') }}</td>
     </tr>
   {% endif %}
+
+  {% if pkg_dict.author_email %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Author") }}</th>
+      <td class="dataset-details" property="dc:creator">{{ h.mail_to(email_address=pkg_dict.author_email, name=pkg_dict.author) }}</td>
+    </tr>
+  {% elif pkg_dict.author %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Author") }}</th>
+      <td class="dataset-details" property="dc:creator">{{ pkg_dict.author }}</td>
+    </tr>
+  {% endif %}
+
+  {% if pkg_dict.maintainer_email %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _('Maintainer') }}</th>
+      <td class="dataset-details" property="dc:contributor">{{ h.mail_to(email_address=pkg_dict.maintainer_email, name=pkg_dict.maintainer) }}</td>
+    </tr>
+  {% elif pkg_dict.maintainer %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _('Maintainer') }}</th>
+      <td class="dataset-details" property="dc:contributor">{{ pkg_dict.maintainer }}</td>
+    </tr>
+  {% endif %}
+
+  {% if pkg_dict.version %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Version") }}</th>
+      <td class="dataset-details">{{ pkg_dict.version }}</td>
+    </tr>
+  {% endif %}
+
+{% endif %}
+    
+    {% if h.metaconf_config.show_state %}
+      {% if h.check_access('package_update',{'id':pkg_dict.id}) %}
+        <tr>
+          <th scope="row" class="dataset-label">{{ _("State") }}</th>
+          <td class="dataset-details">{{ pkg_dict.state }}</td>
+        </tr>
+      {% endif %}
+    {% endif %}
+      
+  {%- for mc_element in h.metaconf_blocks -%}
+    {%- if mc_element.type not in donotshow  -%}
+      <tr>
+        <th scope="row" class="dataset-label">{{ mc_element.label }} </th>
+        <td class="dataset-details"{% if mc_element.rdf_type %} property="{{ mc_element.rdf_type }}" {% endif %}>
+            {%- snippet 'package/snippets/show_element.html', mc=mc_element, data=pkg_dict -%}</td>
+      </tr>
+    {%- endif -%}
+  {%- endfor -%}
 {% endblock %}

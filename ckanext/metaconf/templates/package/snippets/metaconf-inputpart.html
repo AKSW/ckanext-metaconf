@@ -1,9 +1,45 @@
+{% import 'macros/form.html' as form %}
+
+{% set exists = [] %}
+{% for item in data.extras %}
+  {% if item.key == mc.key %}
+          {% do exists.append(item.value) %}
+      {% endif %}
+{% endfor %}
+
+{% if exists %}
+  {% set daten=exists[0] %}
+{% else %}
+  {% set daten=data[mc.key] %}
+{% endif %}
+
+{% set block_id = 'field-' + mc.key %}
+
 {{
 form.prepend(
-'%s' % mc.name,
-id='%s' % mc.id,
-prepend='%s' % mc.opt_value.text,
-label=_('%s') % mc.label,
-value=data.slug,
-error=errors.slug
+    mc.key,
+    id=block_id,
+    label=mc.label,
+    prepend=mc.opt_value['text'],
+    value=daten,
+    placeholder='',
+    error=errors[mc.key]
 ) }}
+
+</script>
+
+{# <script> #}
+{# // WOHOO sry for this, we really wanted those prepended strings #}
+{# function blub(){ #}
+{#     document.getElementById("{{block_id}}").value = #}
+{#         "{{mc.opt_value['text']}}" + document.getElementById("{{block_id}}").value; #}
+{# } #}
+
+{# function init(){ #}
+{#     var form = document.getElementById("{{block_id}}").form; #}
+{#     form.onsubmit = blub; #}
+{# } #}
+
+{# window.onload=init; #}
+
+{# </script> #}

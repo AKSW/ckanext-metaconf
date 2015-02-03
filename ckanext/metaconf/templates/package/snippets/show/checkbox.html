@@ -1,0 +1,12 @@
+{% set exists = [] %}
+{% for item in data.extras %}
+  {% if item.key == element.key %}
+    {% do exists.append(item.value) %}
+  {% endif %}
+{% endfor %}
+
+{% if exists %}
+  <input type="checkbox" onclick="return false" checked/><p>
+{% else %}
+  <input type="checkbox" onclick="return false"/><p>
+{% endif %}

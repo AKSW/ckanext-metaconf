@@ -1,0 +1,16 @@
+{%- set show_snippet = 'package/snippets/show/' -%}
+
+{%- if 'markdown' == mc.type -%}
+  {%- set show_snippet = show_snippet + 'markdown.html' -%} 
+{%- elif 'url' == mc.type -%} 
+  {%- set show_snippet = show_snippet + 'link.html'  -%} 
+{%- elif 'tags' == mc.type -%}
+  {%- set show_snippet = show_snippet + 'tags.html'  -%}
+{%- elif 'checkbox' == mc.type -%} 
+  {%- set show_snippet = show_snippet + 'checkbox.html'  -%} 
+{%- else  -%} 
+  {%- set show_snippet = show_snippet + 'text.html' -%}
+{%- endif -%}
+
+{%- snippet show_snippet, element=mc, data=data, errors=errors -%}
+

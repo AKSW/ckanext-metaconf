@@ -1,16 +1,31 @@
+{% import 'macros/form.html' as form %}
+
+{% set exists = [] %}
+{% for item in data.extras %}
+  {% if item.key == mc.key %}
+          {% do exists.append(item.value) %}
+      {% endif %}
+{% endfor %}
+
+{% if exists %}
+  {% set daten=exists[0] %}
+{% else %}
+  {% set daten=data[mc.key] %}
+{% endif %}
+
 {% set domain = h.url_for(controller='package', action='read', id='', qualified=true) %}
 {% set domain = domain|replace("http://", "")|replace("https://", "") %}
 {% set attrs = {'data-module': '', 'data-module-prefix':
 'domain', 'data-module-placeholder': ''} %}
 
 {{ form.prepend(
-'%s' % mc.name,
-id='%s' % mc.id,
+'%s' % mc.key,
+id='field-' + mc.key,
 label=_('%s') % mc.label,
-prepend='prefix',
+prepend=mc.opt_value.prefix,
 placeholder=_('%s') % mc.opt_value.name,
-value=data.name,
-error=errors.name,
+value=daten,
+error=errors[mc.key],
 attrs=attrs,
 is_required=false) }}
 

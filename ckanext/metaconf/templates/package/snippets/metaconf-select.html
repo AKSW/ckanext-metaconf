@@ -1,8 +1,24 @@
-{{ form.select(
-'%s' % mc.name,
-id='%s' % mc.id,
-label=_('%s') % mc.label,
-options=mc.opt_value.entries,
-selected=mc.opt_value.selected,
-error=errors.year
+{% import 'macros/form.html' as form %}
+
+{% set exists = [] %}
+{% for item in data.extras %}
+  {% if item.key == mc.key %}
+          {% do exists.append(item.value) %}
+      {% endif %}
+{% endfor %}
+
+{% if exists %}
+  {% set daten=exists[0] %}
+{% else %}
+  {% set daten=mc.opt_value.selected %}
+{% endif %}
+
+{{form.select(
+    mc.key,
+    id='field-' + mc.key,
+    label=mc.label,
+    options=mc.opt_value.entries,
+    selected=daten,
+    error=errors[mc.key],
+    is_required=mc.mandatory
 ) }}

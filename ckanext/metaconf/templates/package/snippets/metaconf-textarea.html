@@ -1,7 +1,23 @@
-{{ form.textarea(
-'%s' % mc.name,
-id='%s' % mc.id,
-label=_('%s') % mc.label,
-value=data.desc,
-error=errors.desc
+{% import 'macros/form.html' as form %}
+
+{% set exists = [] %}
+{% for item in data.extras %}
+  {% if item.key == mc.key %}
+          {% do exists.append(item.value) %}
+      {% endif %}
+{% endfor %}
+
+{% if exists %}
+  {% set daten=exists[0] %}
+{% else %}
+  {% set daten=data[mc.key] %}
+{% endif %}
+
+{{form.textarea(
+    mc.key,
+    id='field-' + mc.key,
+    label=mc.label,
+    value=daten,
+    error=errors[mc.key],
+    is_required=mc.mandatory
 ) }}

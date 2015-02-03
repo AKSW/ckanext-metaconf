@@ -1,10 +1,32 @@
-{% set tag_attrs = {'data-module': 'autocomplete', 'data-module-tags': '', 'data-module-source': '/api/2/util/tag/autocomplete?incomplete=?'} %}
+{% import 'macros/form.html' as form %}
+
+{% set exists = [] %}
+{% for item in data.extras %}
+  {% if item.key == mc.key %}
+          {% do exists.append(item.value) %}
+      {% endif %}
+{% endfor %}
+
+{% if exists %}
+  {% set daten=exists[0] %}
+{% else %}
+  {% set daten=data[mc.key] %}
+{% endif %}
+
+{% set tag_attrs = {
+'data-module': 'autocomplete',
+'data-module-tags': '',
+'data-module-source': '/api/2/util/tag/autocomplete?incomplete=?'}
+%}
+
 {{ form.input(
-'%s' % mc.name,
-id='%s' % mc.id,
-label=_('%s') % mc.label,
-placeholder=_('%s') % mc.text,
-value=data.tag_string,
-error=errors.tags,
-classes=['control-full'],
-attrs=tag_attrs) }}
+    mc.key,
+    id='field-' + mc.key,
+    label=mc.label,
+    placeholder=_('%s') % mc.text,
+    value=daten,
+    error=errors[mc.key],
+    classes=['control-full'],
+    attrs=tag_attrs,
+    is_required=mc.mandatory
+) }}

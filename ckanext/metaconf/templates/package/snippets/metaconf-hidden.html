@@ -1,22 +1,4 @@
-{# this is a macro call, can we pass sth to it? #}
-{# ok we can!! TODO remove that #}
-
-
-{# {{data}} #}
-{# <br>=========<br> #}
-
-
-{# {% for this in h.metaconf_schema %} #}
-{#   {{this}} <br> #}
-{#   <blockquote> #}
-{#   {% for that in h.metaconf_schema[this] %} #}
-{#     {{that}} <br> #}
-{#   {% endfor %} #}
-{#   </blockquote> #}
-{# {% endfor %} #}
-
-
 {{ form.hidden(
-'%s' % mc.name,
-'%s' % mc.opt_value.text,
+    mc.key,
+    mc.opt_value.text,
 ) }}

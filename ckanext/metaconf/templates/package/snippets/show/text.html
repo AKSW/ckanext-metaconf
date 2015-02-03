@@ -1,0 +1,10 @@
+{% set exists = [] %}
+{% for item in data.extras %}
+{% if item.key == element.key %}
+          {% do exists.append(item.value) %}
+      {% endif %}
+{% endfor %}
+
+{% if exists %}
+  {{ exists[0] }}
+{% endif %}
