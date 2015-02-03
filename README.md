@@ -22,10 +22,10 @@ Before messing around with this plugin, take a look at how to work with
 [CKAN Plugins!] (http://docs.ckan.org/en/latest/extensions/tutorial.html#installing-the-extension)
 
 Now that you know how to install a extension, you can configure the metadata
-schema to fit your needs. In the main directory theres a settings.py'
-file. It is the only file you have to edit to fully specify your schema. As a
-example there is the OpenGovernmentData-Metadata format implemented so you can
-see what's possible and how to implement it. 
+schema to fit your needs. In the ckanext/metaconf/ directory theres a
+settings.py' file. It is the only file you have to edit to fully specify your
+schema. As a example there is the OpenGovernmentData-Metadata format implemented
+so you can see what's possible and how to implement it.
 
 Every element (shown in the creation workflow) is thereby specified as a python
 McBlock object. Choose a random name (here it's 'fuenf') for your object and
