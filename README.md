@@ -1,24 +1,20 @@
-> BEWARE! THIS PLUGIN IS NOT USABLE YET !!!
-
-
 # ckanext-metaconf
 ## Introduction
 
 This is an extension for the CKAN data portal platform. It adds the possibility
-to configure a metadata schema for datasets and resources. You can specify your
+to configure the metadata schema for datasets and resources. You can specify your
 metadata vocabulary by defining elements that are shown in the CKAN dataset
 creation workflow. This specification is done by the maintainer of the portal
 not the user.
 
-There are three main things that can be done when using CKAN Datasets:
+There are many things that can be done when using CKAN Datasets:
 
 - [x] create it
 - [x] show it
-- [ ] update it
+- [x] update it
+- [x] export metadata as rdf
 
-Only marked items are fully implemented yet. 
-
-**ckanext-metaconf is currently under development** and you should not use it.
+These are modified by this plugin to reflect your changes to the metadata schema.
 
 ## How can I specify my metadata-schema?
 
@@ -26,23 +22,26 @@ Before messing around with this plugin, take a look at how to work with
 [CKAN Plugins!] (http://docs.ckan.org/en/latest/extensions/tutorial.html#installing-the-extension)
 
 Now that you know how to install a extension, you can configure the metadata
-schema to fit your needs. In the main directory theres a 'metaconf-schema.py'
+schema to fit your needs. In the main directory theres a settings.py'
 file. It is the only file you have to edit to fully specify your schema. As a
 example there is the OpenGovernmentData-Metadata format implemented so you can
-see what's possible and how to implement it. *TODO it's not at the point this is
-written*
+see what's possible and how to implement it. 
 
 Every element (shown in the creation workflow) is thereby specified as a python
 McBlock object. Choose a random name (here it's 'fuenf') for your object and
 write something like the following:
 
-     fuenf = McBlock()
-     fuenf.type = 'markdown'
-     fuenf.name = 'Markdown-Box'
-     fuenf.label = 'Eine Markdownbox'
-     fuenf.validator = ['ignore_missing']
-     fuenf.opt_value['checked'] = 'false'
-     fuenf.opt_value['text']   =  'Another text'
+ogd_groups                                        = McBlock()
+ogd_groups.type                                   = 'select'
+ogd_groups.key                                    = 'ogd_groups'
+ogd_groups.rdf_type                               = 'rdf:todo'
+ogd_groups.label                                  = 'Kategorien'
+ogd_groups.mandatory                              = True
+ogd_groups.opt_value['preselected']               = "empty"
+ogd_groups.opt_value['entries']                   = [
+    {'value': '',                                'text': 'Wählen Sie eine Lizenz...'},
+    {'value': 'dl-de-by-1.0',                    'text': 'Datenlizenz Deutschland Namensnennung'},
+]
 
 As type you can show from a list shown below. It tells the plugin how the data
 has to be given by the user. Every McBlock Object has to be provided with the
@@ -54,59 +53,16 @@ Implemented | Type | Description
 ✓ | input:        | one line to type text into
 ✓ | markdown:     | a box to type markdown into
 ✓ | textarea:     | a box to type simple text into
-✗ | *checkbox:    | *radiobuttons for boolean input*
+✓ | checkbox:     | radiobuttons for boolean input
 ✓ | inputpart:    | only parts of the data saved are given by the user
 ✓ | tags:         | multiple tags
 ✓ | select:       | a dropdown menu to choose from
-✗ | *url:*        | *one line to input a URL*
-✗ | numberline:   | one line to typ an integer into
-✗ | date:         | a field to input a date
+✓ | url:          | one line to input a URL
 ✓ | hidden:       | add a hidden field
 ✓ | organization: | choose from those CKAN Organizations (at the moment this is activated by default when a organization exists)
-✗ |               | TODO: formatierung übrschriften, ...
-
-For validator you can choose from:
-
-*TODO this is not cool at the time: document more and better*
-
-    [empty, ignore_empty, ignore, ignore_missing, if_empty_save_as(identifier)]
-    
-    empty:            field has to be empty
-    ignore:           data is ignored
-    ignore_empty:     data is ignored if it's empty
-    ignore_missing:   TODO nicht relevant für user
-    if_empty_save_as: if its empty use the value of (identifier)
-    
-    For converter you can choose from:
-    [remove_whitespace, clean_format]
-    
-    remove_whitespace: strip whitespaces
-    clean_format     : format_.lower().split('/')[-1].replace('.', '')
-    ```
-
-## Temporary things the developers found to be interesting at development time
-
-    Step 1: package_basic_fields.html
-              -> 
-
-    Step 2: resource_form.html
-              -> 'stages':                   Stages snippet (1,2,3 bar at the top)
-
-              -> 'basic_fields':             File block (Upload or Link)
-              -> 'basic_fields_name':        Name textfield
-              -> 'basic_fields_description': Description Field
-              -> 'basic_fields_format':      Format dropdown menu
-
-              -> 'metadata_fields' (if include_metadata): ???
-
-              -> Form buttons (previous, save&add another, next)
-
-    Step 3: package_metadata_fields.html
-              -> package_metadata_fields_url: Resource URL
-              -> package_metadata_fields_version: Version
-              -> package_metadata_author    : Author && Author-Email
-              -> package_metadata_fields_maintainer: Maintainer && Maintainer-Email
-
+✓ | custom        | your custom HTML to nicen up the form
+✓ | h1,h2,h3      | headings in different sizes
+✓ | hline         | a horizontal line (simple html)
 
 ## Nice to know
 

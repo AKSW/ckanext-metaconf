@@ -33,10 +33,6 @@ errors=errors, form=form, groups_available=groups_available, mc=mc_element %}
   {% snippet 'package/snippets/metaconf-inputpart.html', data=data,
   errors=errors, form=form, mc=mc_element %}
 
-{% elif mc_element.type == 'date' %}    
-  {% snippet 'package/snippets/metaconf-date.html', data=data,
-  errors=errors, form=form, mc=mc_element %}
-
 {% elif mc_element.type == 'checkbox' %}    
   {% snippet 'package/snippets/metaconf-checkbox.html', data=data,
   errors=errors, form=form, mc=mc_element %}
@@ -53,11 +49,6 @@ errors=errors, form=form, groups_available=groups_available, mc=mc_element %}
 
   {% snippet 'package/snippets/metaconf-hidden.html', data=data,
   errors=errors, form=form, mc=mc_element %}
-
-{% elif mc_element.type == 'newage' %}
-
-  {% snippet 'package/snippets/metaconf-newage.html', data=data,
-  errors=errors, extras=data.extras, form=form, mc=mc_element %}
 
 {% elif mc_element.type == 'custom' %}
 
